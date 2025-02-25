@@ -1,0 +1,17 @@
+<idea-plugin>
+    <id>com.linuxgods.kreiger.jetbrains.rider.brace.folding</id>
+    <idea-version since-build="243"/>
+    <name>K&amp;R Brace Placement Style Folding</name>
+
+    <vendor email="christoffer.hammarstrom@gmail.com">Christoffer Hammarström</vendor>
+
+    <description><![CDATA[
+        Folds whitespace before left braces in C# code, according to the K&R style.
+    ]]></description>
+
+    <depends>com.intellij.modules.rider</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <lang.foldingBuilder language="C#" implementationClass="com.linuxgods.kreiger.jetbrains.rider.brace.folding.CSharpBraceFoldingBuilder" />
+    </extensions>
+</idea-plugin>

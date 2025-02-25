@@ -1,0 +1,29 @@
+plugins {
+    id("java")
+    id("org.jetbrains.intellij.platform") version "2.2.1"
+}
+
+group = "com.linuxgods.kreiger.jetbrains.rider"
+version = "1.0-SNAPSHOT"
+
+repositories {
+    mavenCentral()
+
+    intellijPlatform {
+        defaultRepositories()
+    }
+}
+
+dependencies {
+    intellijPlatform {
+        rider '2024.3.5'
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.release = 21
+}
+
+runIde {
+    jvmArgs '-Xmx4G'
+}
