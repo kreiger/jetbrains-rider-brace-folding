@@ -9,6 +9,7 @@ import com.intellij.openapi.editor.FoldingGroup;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiRecursiveElementVisitor;
+import com.intellij.psi.tree.IElementType;
 import com.jetbrains.rider.languages.fileTypes.csharp.kotoparser.lexer.CSharpTokenType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.intellij.psi.TokenType.WHITE_SPACE;
+import static com.jetbrains.rider.languages.fileTypes.csharp.kotoparser.lexer.CSharpTokenType.*;
 
 public class CSharpBraceFoldingBuilder extends FoldingBuilderEx {
     private static final Logger log = Logger.getInstance(CSharpBraceFoldingBuilder.class);
@@ -34,7 +36,8 @@ public class CSharpBraceFoldingBuilder extends FoldingBuilderEx {
             }
 
             private void checkAstNode(ASTNode astNode) {
-                if (astNode.getElementType() != CSharpTokenType.LBRACE) return;
+                IElementType type = astNode.getElementType();
+                if (type != LBRACE && type != CATCH_KEYWORD) return;
                 ASTNode treePrev = astNode.getTreePrev();
                 if (treePrev == null) {
                     ASTNode treeParent = astNode.getTreeParent();
