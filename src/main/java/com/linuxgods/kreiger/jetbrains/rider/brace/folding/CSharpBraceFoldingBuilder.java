@@ -5,6 +5,7 @@ import com.intellij.lang.folding.FoldingBuilderEx;
 import com.intellij.lang.folding.FoldingDescriptor;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.Document;
+import com.intellij.openapi.editor.FoldingGroup;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiRecursiveElementVisitor;
@@ -22,6 +23,7 @@ public class CSharpBraceFoldingBuilder extends FoldingBuilderEx {
 
     @Override
     public FoldingDescriptor @NotNull [] buildFoldRegions(@NotNull PsiElement psiElement, @NotNull Document document, boolean b) {
+        FoldingGroup foldingGroup = FoldingGroup.newGroup("brace");
         List<FoldingDescriptor> descriptors = new ArrayList<>();
         psiElement.accept(new PsiRecursiveElementVisitor() {
 
@@ -47,7 +49,8 @@ public class CSharpBraceFoldingBuilder extends FoldingBuilderEx {
                 } else if (textRange.getLength() == 1 && treePrev.getText().charAt(0) != '\n') {
                     return;
                 }
-                descriptors.add(new FoldingDescriptor(astNode, textRange));
+                FoldingDescriptor foldingDescriptor = new FoldingDescriptor(astNode, textRange, foldingGroup);
+                descriptors.add(foldingDescriptor);
             }
         });
 
