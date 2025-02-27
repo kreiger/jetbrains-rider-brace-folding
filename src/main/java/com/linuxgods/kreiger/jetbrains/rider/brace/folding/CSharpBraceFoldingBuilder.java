@@ -10,7 +10,7 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiRecursiveElementVisitor;
 import com.intellij.psi.tree.IElementType;
-import com.jetbrains.rider.languages.fileTypes.csharp.kotoparser.lexer.CSharpTokenType;
+import com.jetbrains.rider.languages.fileTypes.csharp.psi.impl.CSharpParameterDeclaration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -37,7 +37,11 @@ public class CSharpBraceFoldingBuilder extends FoldingBuilderEx {
 
             private void checkAstNode(ASTNode astNode) {
                 IElementType type = astNode.getElementType();
-                if (type != LBRACE && type != CATCH_KEYWORD) return;
+                if (type != LBRACE && type != CATCH_KEYWORD && type != ELSE_KEYWORD) {
+                    if (!(astNode.getPsi() instanceof CSharpParameterDeclaration)) {
+                        return;
+                    }
+                }
                 ASTNode treePrev = astNode.getTreePrev();
                 if (treePrev == null) {
                     ASTNode treeParent = astNode.getTreeParent();
