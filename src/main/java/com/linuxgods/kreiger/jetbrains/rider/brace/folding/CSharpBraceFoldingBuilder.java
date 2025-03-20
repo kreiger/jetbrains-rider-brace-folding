@@ -42,7 +42,7 @@ public class CSharpBraceFoldingBuilder extends FoldingBuilderEx {
                 if (next == null || next.getElementType() != WHITE_SPACE) return;
                 ASTNode nextNext = next.getTreeNext();
                 if (nextNext == null || nextNext.getElementType() != WHITE_SPACE) return;
-                TextRange textRange = next.getTextRange();
+                TextRange textRange = node.getTextLength() == 1 && "\n".equals(node.getText()) ? next.getTextRange() : nextNext.getTextRange();
                 for (ASTNode n = nextNext.getTreeNext(); n != null; n = n.getTreeNext()) {
                     if (n.getElementType() != WHITE_SPACE) {
                         FoldingDescriptor foldingDescriptor = new FoldingDescriptor(next, textRange, spaceGroup, "");
