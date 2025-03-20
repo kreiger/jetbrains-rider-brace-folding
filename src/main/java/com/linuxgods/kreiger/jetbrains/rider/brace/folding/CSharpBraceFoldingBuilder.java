@@ -61,7 +61,7 @@ public class CSharpBraceFoldingBuilder extends FoldingBuilderEx {
 
             private void checkAstNode(ASTNode astNode) {
                 IElementType type = astNode.getElementType();
-                if (type != LBRACE && type != CATCH_KEYWORD && type != ELSE_KEYWORD) {
+                if (type != LBRACE && type != CATCH_KEYWORD && type != ELSE_KEYWORD && type != WHERE_KEYWORD) {
                     if (!(astNode.getPsi() instanceof CSharpParameterDeclaration)) {
                         return;
                     }
